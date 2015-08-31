@@ -9,6 +9,7 @@ package woordenapplicatie.gui;
 
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -63,7 +64,9 @@ public class WoordenController implements Initializable {
     
     @FXML
     private void aantalAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+         String[] woorden = taInput.getText().split(",*\\s");
+        // woorden = Arrays.toString(woorden).split("\\s");
+         taOutput.setText(Arrays.toString(woorden));
     }
 
     @FXML
