@@ -9,8 +9,12 @@ package woordenapplicatie.gui;
 
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.TreeSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -56,27 +60,37 @@ public class WoordenController implements Initializable {
     private Button btConcordantie;
     @FXML
     private TextArea taOutput;
+    
+    private String[] woorden;
+    private Set<String> set;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         taInput.setText(DEFAULT_TEXT);
+        set = new TreeSet<>();
     }
     
+    //We hebben de input gesplitst op 
+    //We hebben TreeSet gebruikt omdat hier geen dubbele waardes in kunnen.
     @FXML
     private void aantalAction(ActionEvent event) {
-         String[] woorden = taInput.getText().split(",*\\s");
-        // woorden = Arrays.toString(woorden).split("\\s");
-         taOutput.setText(Arrays.toString(woorden));
+        woorden = taInput.getText().split(",*\\s");
+        set.addAll(Arrays.asList(woorden));
+        taOutput.setText("Aantal woorden: " + woorden.length + "\nAantal verschillende woorden: " + set.size());
     }
 
     @FXML
     private void sorteerAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+        woorden = taInput.getText().split(",*\\s");
+        set.addAll(Arrays.asList(woorden));
+        woorden = set.toArray(new String[set.size()]);
+        Arrays.sort(woorden, Collections.reverseOrder());   
+        taOutput.setText(Arrays.toString(woorden));
     }
 
     @FXML
     private void frequentieAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+          
     }
 
     @FXML
