@@ -86,14 +86,17 @@ public class WoordenController implements Initializable {
         set.addAll(Arrays.asList(woorden));
         woorden = set.toArray(new String[set.size()]);
         Arrays.sort(woorden, Collections.reverseOrder());
-        taOutput.setText(Arrays.toString(woorden));
+        for(String s : woorden)
+        {
+            taOutput.setText(taOutput.getText() + s + "\n");
+        }
+        //taOutput.setText(Arrays.toString(woorden));
     }
 
     @FXML
     private void frequentieAction(ActionEvent event) {
         taOutput.clear();
         
-        String output = "";
         woorden = taInput.getText().split(",*\\s");
         set.addAll(Arrays.asList(woorden));
 
@@ -110,14 +113,10 @@ public class WoordenController implements Initializable {
 
         for (String name : hm.keySet()) {
 
-            String key = name.toString();
+            String key = name;
             String value = hm.get(name).toString();
-            output = output + "Key: " + key + ", Value: " + value + "\n";
-
+            taOutput.setText(taOutput.getText() + "Key: " + key + ", Value: " + value + "\n");
         }
-
-        taOutput.setText(output);
-
     }
 
     @FXML
