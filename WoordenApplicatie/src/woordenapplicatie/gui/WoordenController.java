@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -71,7 +72,7 @@ public class WoordenController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         taInput.setText(DEFAULT_TEXT);
-        set = new TreeSet<>();
+        set = new HashSet<>();
     }
 
     //We hebben de input gesplitst op 
@@ -91,8 +92,7 @@ public class WoordenController implements Initializable {
         set.addAll(Arrays.asList(woorden));
         woorden = set.toArray(new String[set.size()]);
         Arrays.sort(woorden, Collections.reverseOrder());
-        for(String s : woorden)
-        {
+        for (String s : woorden) {
             taOutput.setText(taOutput.getText() + s + "\n");
         }
         //taOutput.setText(Arrays.toString(woorden));
@@ -101,7 +101,7 @@ public class WoordenController implements Initializable {
     @FXML
     private void frequentieAction(ActionEvent event) {
         taOutput.clear();
-        
+
         woorden = taInput.getText().split(",*\\s");
         set.addAll(Arrays.asList(woorden));
 
@@ -115,7 +115,7 @@ public class WoordenController implements Initializable {
 
             hm.put(woord, count);
         }
-        
+
         hm = sortByValues(hm);
 
         for (String name : hm.keySet()) {
@@ -124,37 +124,56 @@ public class WoordenController implements Initializable {
             String value = hm.get(name).toString();
             taOutput.setText(taOutput.getText() + "Key: " + key + ", Value: " + value + "\n");
         }
-<<<<<<< HEAD
-
-        
-        taOutput.setText(output);
-
-=======
->>>>>>> origin/master
     }
 
     @FXML
     private void concordatieAction(ActionEvent event) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        /*
+         1. Unieke woorden uit tekst halen d.m.v. HashSet
+         2. Regels splitten en in een HashMap zetten
+         3. Loop door de HashSet en vergelijk ieder woord met regels in de HashMap
+         4. Sla het woord op als key in een nieuwe HashMap en het aantal regels
+         waar het woord op voorkomt, als value
+         5. Laat zien taOutput
+         */
+        HashMap<String, Integer[]> hm = new HashMap<>();
+
+        taOutput.clear();
+
+        woorden = taInput.getText().split(",*\\s");
+        set.addAll(Arrays.asList(woorden));
+
+        String[] regels = taInput.getText().split("\n");
+
+        Iterator it = set.iterator();
+
+        while (it.hasNext()) {
+            for (int i = 0; i < regels.length; i++) {
+                
+                if (regels[i].contains(it.next().toString())) {
+                    //TODO
+                }
+
+            }
+        }
+
     }
 
-     private static HashMap sortByValues(HashMap map) { 
-       List list = new LinkedList(map.entrySet());
-       // Defined Custom Comparator here
-       Collections.sort(list, new Comparator() {
+    private static HashMap sortByValues(HashMap map) {
+        List list = new LinkedList(map.entrySet());
+        // Defined Custom Comparator here
+        Collections.sort(list, new Comparator() {
             public int compare(Object o1, Object o2) {
-               return ((Comparable) ((Map.Entry) (o1)).getValue())
-                  .compareTo(((Map.Entry) (o2)).getValue());
+                return ((Comparable) ((Map.Entry) (o1)).getValue())
+                        .compareTo(((Map.Entry) (o2)).getValue());
             }
-       });
+        });
 
-       // Here I am copying the sorted list in HashMap
-       // using LinkedHashMap to preserve the insertion order
-       HashMap sortedHashMap = new LinkedHashMap();
-       for (Iterator it = list.iterator(); it.hasNext();) {
-              Map.Entry entry = (Map.Entry) it.next();
-              sortedHashMap.put(entry.getKey(), entry.getValue());
-       } 
-       return sortedHashMap;
-  }
+        HashMap sortedHashMap = new LinkedHashMap();
+        for (Iterator it = list.iterator(); it.hasNext();) {
+            Map.Entry entry = (Map.Entry) it.next();
+            sortedHashMap.put(entry.getKey(), entry.getValue());
+        }
+        return sortedHashMap;
+    }
 }
