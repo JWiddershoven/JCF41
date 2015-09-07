@@ -9,8 +9,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
@@ -107,6 +112,8 @@ public class WoordenController implements Initializable {
 
             hm.put(woord, count);
         }
+        
+        hm = sortByValues(hm);
 
         for (String name : hm.keySet()) {
 
@@ -116,6 +123,7 @@ public class WoordenController implements Initializable {
 
         }
 
+        
         taOutput.setText(output);
 
     }
@@ -125,4 +133,23 @@ public class WoordenController implements Initializable {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+     private static HashMap sortByValues(HashMap map) { 
+       List list = new LinkedList(map.entrySet());
+       // Defined Custom Comparator here
+       Collections.sort(list, new Comparator() {
+            public int compare(Object o1, Object o2) {
+               return ((Comparable) ((Map.Entry) (o1)).getValue())
+                  .compareTo(((Map.Entry) (o2)).getValue());
+            }
+       });
+
+       // Here I am copying the sorted list in HashMap
+       // using LinkedHashMap to preserve the insertion order
+       HashMap sortedHashMap = new LinkedHashMap();
+       for (Iterator it = list.iterator(); it.hasNext();) {
+              Map.Entry entry = (Map.Entry) it.next();
+              sortedHashMap.put(entry.getKey(), entry.getValue());
+       } 
+       return sortedHashMap;
+  }
 }
