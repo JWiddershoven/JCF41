@@ -136,7 +136,8 @@ public class WoordenController implements Initializable {
          waar het woord op voorkomt, als value
          5. Laat zien taOutput
          */
-        HashMap<String, Integer[]> hm = new HashMap<>();
+        HashMap<String, ArrayList<Integer>> hm = new HashMap<>();
+        String woord = "";
 
         taOutput.clear();
 
@@ -144,17 +145,27 @@ public class WoordenController implements Initializable {
         set.addAll(Arrays.asList(woorden));
 
         String[] regels = taInput.getText().split("\n");
+        ArrayList<Integer> regelnummers;
 
         Iterator it = set.iterator();
 
         while (it.hasNext()) {
+            woord = it.next().toString();
+            regelnummers = new ArrayList<>();
             for (int i = 0; i < regels.length; i++) {
-                
-                if (regels[i].contains(it.next().toString())) {
+                if (regels[i].contains(woord)) {
                     //TODO
+                    regelnummers.add(i + 1);
                 }
-
             }
+
+            hm.put(woord, regelnummers);
+        }
+
+        for (String name : hm.keySet()) {
+
+            String value = hm.get(name).toString();
+            taOutput.setText(taOutput.getText() + name + ": " + value + "\n");
         }
 
     }
