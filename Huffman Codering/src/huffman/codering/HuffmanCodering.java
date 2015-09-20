@@ -7,21 +7,23 @@ package huffman.codering;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
 
 /**
- * Huffman Stappenplan 1. Frequentie van tekens tellen 2. Sorteer de tekens op
- * frequentie 3. Maken van de huffman-boom 4. Aflezen van de codes 5. Coderen
+ * Huffman Stappenplan 1. Frequentie van tekens tellen
+ * 2. Sorteer de tekens op frequentie
+ * 3. Maken van de huffman-boom 4. Aflezen van de codes 5. Coderen
  * van het berichten 6. Decoderen
  */
 public class HuffmanCodering {
 
     public static void main(String[] args) {
         //Convert het woord naar chars
-        String woord = "appel";
+        String woord = "bccccdddd";
         ArrayList<Character> chars = new ArrayList<>();
         ArrayList<HuffKnoop> knopen = new ArrayList<>();
         for (int i = 0; i < woord.length(); i++) {
@@ -39,13 +41,26 @@ public class HuffmanCodering {
             System.out.println("karakter: " + k.karakter + " " + "frequentie: "  + k.frequentie);
         }
         
-        //2. Sorteer de tekens op frequentie
-        PriorityQueue queue = new PriorityQueue(uniqueChars.size());
-        
-        for (char c : uniqueChars)
+       //2. Sorteer de tekens op frequentie
+        PriorityQueue queue = new PriorityQueue(uniqueChars.size(), new Comparator<Integer>() 
         {
-            queue.add(c);
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1.compareTo(o2);
+            }
+            
+        });
+        
+        for (HuffKnoop knoop : knopen)
+        {
+            queue.add(knoop.frequentie);
         }
-    }
+        
+        while (queue.size() != 0)
+        {
+            System.out.println(queue.remove());
+        }
+        
+   }
 
 }
