@@ -23,10 +23,10 @@ import java.util.Set;
 public class HuffmanCodering {
 
     static Map<Character, String> codes = new HashMap<>();
-    
+
     public static void main(String[] args) {
         //Convert het woord naar chars
-        String woord = "bean";
+        String woord = "bananen";
         ArrayList<Character> chars = new ArrayList<>();
         ArrayList<HuffKnoop> knopen = new ArrayList<>();
         for (int i = 0; i < woord.length(); i++) {
@@ -37,10 +37,6 @@ public class HuffmanCodering {
         Set<Character> uniqueChars = new HashSet<>(chars);
         for (char c : uniqueChars) {
             knopen.add(new HuffKnoop(c, Collections.frequency(chars, c), null, null));
-        }
-
-        for (HuffKnoop k : knopen) {
-            System.out.println("karakter: " + k.karakter + " " + "frequentie: " + k.frequentie);
         }
 
         //2. Sorteer de tekens op frequentie
@@ -56,6 +52,15 @@ public class HuffmanCodering {
             queue.add(knoop);
         }
 
+        while (queue.size() != 0) {
+            HuffKnoop knoop = (HuffKnoop) queue.poll();
+            System.out.println("karakter: " + knoop.karakter + " frequentie: " + knoop.frequentie);
+        }
+
+        for (HuffKnoop knoop : knopen) {
+            queue.add(knoop);
+        }
+
         //3. Maken van de huffman boom.
         while (queue.size() > 1) {
             HuffKnoop knoopLinks = (HuffKnoop) queue.poll();
@@ -63,27 +68,24 @@ public class HuffmanCodering {
             System.out.println(knoopLinks.frequentie + knoopRechts.frequentie);
             queue.add(new HuffKnoop('\0', knoopLinks.frequentie + knoopRechts.frequentie, knoopLinks, knoopRechts));
         }
-        
+
         generateCodes((HuffKnoop) queue.poll(), "");
-        
+
         Iterator it = codes.entrySet().iterator();
-        while (it.hasNext())
-        {
-            Map.Entry pair = (Map.Entry)it.next();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
             System.out.println(pair.getKey() + " " + pair.getValue());
             it.remove();
         }
-        
+
     }
-    
-    public static void generateCodes(HuffKnoop knoop, String code)
-    {
-        if (knoop.leftChild == null && knoop.rightChild == null)
-        {
+
+    public static void generateCodes(HuffKnoop knoop, String code) {
+        if (knoop.leftChild == null && knoop.rightChild == null) {
             codes.put(knoop.karakter, code);
             return;
         }
-        
+
         generateCodes(knoop.leftChild, code + '0');
         generateCodes(knoop.rightChild, code + '1');
     }
