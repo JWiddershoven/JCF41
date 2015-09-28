@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
@@ -20,9 +22,11 @@ import java.util.Set;
  */
 public class HuffmanCodering {
 
+    static Map<Character, String> codes = new HashMap<>();
+    
     public static void main(String[] args) {
         //Convert het woord naar chars
-        String woord = "appel";
+        String woord = "bean";
         ArrayList<Character> chars = new ArrayList<>();
         ArrayList<HuffKnoop> knopen = new ArrayList<>();
         for (int i = 0; i < woord.length(); i++) {
@@ -60,6 +64,28 @@ public class HuffmanCodering {
             queue.add(new HuffKnoop('\0', knoopLinks.frequentie + knoopRechts.frequentie, knoopLinks, knoopRechts));
         }
         
+        generateCodes((HuffKnoop) queue.poll(), "");
+        
+        Iterator it = codes.entrySet().iterator();
+        while (it.hasNext())
+        {
+            Map.Entry pair = (Map.Entry)it.next();
+            System.out.println(pair.getKey() + " " + pair.getValue());
+            it.remove();
+        }
+        
+    }
+    
+    public static void generateCodes(HuffKnoop knoop, String code)
+    {
+        if (knoop.leftChild == null && knoop.rightChild == null)
+        {
+            codes.put(knoop.karakter, code);
+            return;
+        }
+        
+        generateCodes(knoop.leftChild, code + '0');
+        generateCodes(knoop.rightChild, code + '1');
     }
 
 }
