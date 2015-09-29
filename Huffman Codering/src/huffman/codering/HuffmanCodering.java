@@ -77,6 +77,8 @@ public class HuffmanCodering {
             System.out.println(pair.getKey() + " " + pair.getValue());
             it.remove();
         }
+        
+        System.out.println(encodeMessage(woord));
 
     }
 
@@ -88,6 +90,19 @@ public class HuffmanCodering {
 
         generateCodes(knoop.leftChild, code + '0');
         generateCodes(knoop.rightChild, code + '1');
+    }
+    
+    public static String encodeMessage(String woord)
+    {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < woord.length(); i++)
+        {
+            System.out.println(woord.charAt(i));
+            //System.out.println(codes.get(woord.charAt(i)));
+            sb.append(codes.get(woord.charAt(i)));
+        }
+        
+        return sb.toString();
     }
 
 }
