@@ -68,9 +68,12 @@ public class HuffmanCodering {
             System.out.println(pair.getKey() + " " + pair.getValue());
         }
         
+        //5. Coderen
+        String encodedMessage = encodeMessage(woord);
+        System.out.println(encodedMessage);    
         
-        System.out.println(encodeMessage(woord));
-
+        //6. Decoderen
+        
     }
 
     public static void generateCodes(HuffKnoop knoop, String code) {
@@ -92,6 +95,11 @@ public class HuffmanCodering {
         }
         
         return sb.toString();
+    }
+    
+    public static void decodeMessage(String encodedMessage)
+    {
+        
     }
 
 }
