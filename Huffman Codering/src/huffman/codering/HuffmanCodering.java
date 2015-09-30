@@ -52,31 +52,22 @@ public class HuffmanCodering {
             queue.add(knoop);
         }
 
-        while (queue.size() != 0) {
-            HuffKnoop knoop = (HuffKnoop) queue.poll();
-            System.out.println("karakter: " + knoop.karakter + " frequentie: " + knoop.frequentie);
-        }
-
-        for (HuffKnoop knoop : knopen) {
-            queue.add(knoop);
-        }
-
         //3. Maken van de huffman boom.
         while (queue.size() > 1) {
             HuffKnoop knoopLinks = (HuffKnoop) queue.poll();
             HuffKnoop knoopRechts = (HuffKnoop) queue.poll();
-            System.out.println(knoopLinks.frequentie + knoopRechts.frequentie);
             queue.add(new HuffKnoop('\0', knoopLinks.frequentie + knoopRechts.frequentie, knoopLinks, knoopRechts));
         }
 
+        //4. Aflezen van de codes
         generateCodes((HuffKnoop) queue.poll(), "");
 
         Iterator it = codes.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             System.out.println(pair.getKey() + " " + pair.getValue());
-            it.remove();
         }
+        
         
         System.out.println(encodeMessage(woord));
 
@@ -97,8 +88,6 @@ public class HuffmanCodering {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < woord.length(); i++)
         {
-            System.out.println(woord.charAt(i));
-            //System.out.println(codes.get(woord.charAt(i)));
             sb.append(codes.get(woord.charAt(i)));
         }
         
