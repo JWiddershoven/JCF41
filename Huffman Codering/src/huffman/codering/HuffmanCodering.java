@@ -70,11 +70,11 @@ public class HuffmanCodering {
             Map.Entry pair = (Map.Entry) it.next();
             System.out.println(pair.getKey() + " " + pair.getValue());
         }
-        
+
         //5. Coderen
         String encodedMessage = encodeMessage(woord);
-        System.out.println(encodedMessage);    
-        
+        System.out.println(encodedMessage);
+
         //6. Decoderen
         String decodedMessage = decodeMessage(encodedMessage);
         System.out.println(decodedMessage);
@@ -89,34 +89,37 @@ public class HuffmanCodering {
         generateCodes(knoop.leftChild, code + '0');
         generateCodes(knoop.rightChild, code + '1');
     }
-    
-    public static String encodeMessage(String woord)
-    {
+
+    public static String encodeMessage(String woord) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < woord.length(); i++)
-        {
+        for (int i = 0; i < woord.length(); i++) {
             sb.append(codes.get(woord.charAt(i)));
         }
-        
+
         return sb.toString();
     }
-    
-    public static String decodeMessage(String encodedMessage)
-    {
+
+    public static String decodeMessage(String encodedMessage) {
         StringBuilder sb = new StringBuilder();
-        String temp = new String();
-        
-        for (int i = 0; i < encodedMessage.length(); i++)
-        {
-            temp = temp + encodedMessage.charAt(i);
-            if (codes.containsValue(temp))
-            {
-                sb.append(codes.get(temp));
+        HuffKnoop temp = boom;
+        for (int i = 0; i < encodedMessage.length(); i++) {
+            if (encodedMessage.charAt(i) == '0') {
+                temp = temp.leftChild;
+                if (temp.leftChild == null && temp.rightChild == null) {
+                    sb.append(temp.karakter);
+                    temp = boom;
+                }
+            } else {
+                temp = temp.rightChild;
+                if (temp.leftChild == null && temp.rightChild == null) {
+                    sb.append(temp.karakter);
+                    temp = boom;
+                }
             }
         }
-        
+
         return sb.toString();
-        
+
     }
 
 }
