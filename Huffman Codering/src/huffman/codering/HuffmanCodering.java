@@ -6,6 +6,7 @@
 package huffman.codering;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import java.util.Set;
 public class HuffmanCodering {
 
     static Map<Character, String> codes = new HashMap<>();
+    static HuffKnoop boom = null;
 
     public static void main(String[] args) {
         //Convert het woord naar chars
@@ -60,7 +62,8 @@ public class HuffmanCodering {
         }
 
         //4. Aflezen van de codes
-        generateCodes((HuffKnoop) queue.poll(), "");
+        boom = (HuffKnoop) queue.poll();
+        generateCodes(boom, "");
 
         Iterator it = codes.entrySet().iterator();
         while (it.hasNext()) {
@@ -73,7 +76,8 @@ public class HuffmanCodering {
         System.out.println(encodedMessage);    
         
         //6. Decoderen
-        
+        String decodedMessage = decodeMessage(encodedMessage);
+        System.out.println(decodedMessage);
     }
 
     public static void generateCodes(HuffKnoop knoop, String code) {
@@ -97,8 +101,21 @@ public class HuffmanCodering {
         return sb.toString();
     }
     
-    public static void decodeMessage(String encodedMessage)
+    public static String decodeMessage(String encodedMessage)
     {
+        StringBuilder sb = new StringBuilder();
+        String temp = new String();
+        
+        for (int i = 0; i < encodedMessage.length(); i++)
+        {
+            temp = temp + encodedMessage.charAt(i);
+            if (codes.containsValue(temp))
+            {
+                sb.append(codes.get(temp));
+            }
+        }
+        
+        return sb.toString();
         
     }
 
