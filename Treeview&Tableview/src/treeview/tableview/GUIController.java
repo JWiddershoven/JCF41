@@ -74,11 +74,10 @@ public class GUIController implements Initializable {
     }
 
     public void updateTableView() {
-        tableViewEmployees.getItems().clear();
         TreeItem<Department> selectedDep = (TreeItem<Department>) treeViewDepartments.getSelectionModel().getSelectedItem();
         System.out.println(selectedDep.getValue().getEmployees().size());
         if (selectedDep.getValue().getEmployees().size() > 0) {
-            tableViewEmployees.setItems((ObservableList) selectedDep.getValue().getEmployees());
+            tableViewEmployees.setItems(selectedDep.getValue().getEmployees());
         }
     }
 
@@ -91,6 +90,7 @@ public class GUIController implements Initializable {
         TreeItem<Department> newItem = new TreeItem<>(new Department(tbDepartmentName.getText()));
         newItem.setExpanded(true);
         observableDepartments.add(newItem);
+        tbDepartmentName.clear();
     }
 
     public void addNewEmployee() {
@@ -105,6 +105,8 @@ public class GUIController implements Initializable {
         Employee emp = new Employee(tbFirstname.getText(), tbLastname.getText());
         TreeItem<Department> selectedItem = (TreeItem<Department>) treeViewDepartments.getSelectionModel().getSelectedItem();
         selectedItem.getValue().addEmployee(emp);
+        tbFirstname.clear();
+        tbLastname.clear();
         updateTableView();
     }
 

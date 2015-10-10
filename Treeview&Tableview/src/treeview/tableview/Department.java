@@ -38,7 +38,7 @@ public class Department {
     
     public void addEmployee(Employee e)
     {
-        observEmployees.add(e);
+        this.observEmployees.add(e);
     }
     
     @Override
