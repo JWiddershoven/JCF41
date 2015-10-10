@@ -14,7 +14,7 @@
           <TableColumn fx:id="tcLastname" prefWidth="75.0" text="Lastname" />
         </columns>
       </TableView>
-      <TreeView fx:id="treeViewDepartments" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" />
+      <TreeView fx:id="treeViewDepartments" layoutX="14.0" layoutY="14.0" onMouseClicked="#updateTableView" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="311.0" layoutY="224.0" text="Employee" />
       <TextField fx:id="tbFirstname" layoutX="237.0" layoutY="251.0" promptText="Firstname" />
       <TextField fx:id="tbLastname" layoutX="237.0" layoutY="288.0" promptText="Lastname" />
