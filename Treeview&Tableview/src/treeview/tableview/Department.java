@@ -8,12 +8,13 @@ package treeview.tableview;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TreeCell;
 
 /**
  *
  * @author Jelle
  */
-public class Department {
+public class Department{
     
     private String name;
     private ArrayList<Employee> employees;
@@ -22,8 +23,15 @@ public class Department {
     public Department(String name)
     {
         this.name = name;
-        employees = new ArrayList<>();
-        observEmployees = FXCollections.observableArrayList(employees);
+        this.employees = new ArrayList<>();
+        this.observEmployees = FXCollections.observableArrayList(employees);
+    }
+    
+    public Department(String name, ObservableList<Employee> emps)
+    {
+        this.name = name;
+        this.employees = new ArrayList<>();
+        this.observEmployees = emps;
     }
     
     public String getName()
@@ -39,6 +47,11 @@ public class Department {
     public void addEmployee(Employee e)
     {
         this.observEmployees.add(e);
+    }
+    
+    public void setName(String name)
+    {
+        this.name = name;
     }
     
     @Override

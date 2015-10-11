@@ -11,10 +11,13 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,6 +51,25 @@ public class GUIController implements Initializable {
         rootItem = new TreeItem<>(new Department("Departments"));
         rootItem.setExpanded(true);
         treeViewDepartments.setRoot(rootItem);
+        treeViewDepartments.setEditable(true);
+        treeViewDepartments.setCellFactory(new Callback<TreeView<Department>, TreeCell<Department>>(){
+
+            @Override
+            public TreeCell<Department> call(TreeView<Department> param) {
+                return new TextFieldTree(param);
+            }
+            
+        });
+        
+        treeViewDepartments.setOnEditCommit(new EventHandler<TreeView.EditEvent<Department>>(){
+
+            @Override
+            public void handle(TreeView.EditEvent<Department> event) {
+                TreeItem<Department> selectedDep = (TreeItem<Department>) treeViewDepartments.getSelectionModel().getSelectedItem();
+                selectedDep.getValue().setName(event.getNewValue().getName());
+            }
+
+        });
 
         tcFirstname.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstname"));
         tcLastname.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastname"));
@@ -61,6 +83,7 @@ public class GUIController implements Initializable {
                     rootItem.getChildren().setAll(observableDepartments);
                 } else {
                     TreeItem<Department> selectedItem = (TreeItem<Department>) treeViewDepartments.getSelectionModel().getSelectedItem();
+                    System.out.println(c.getList());
                     selectedItem.getChildren().add(c.getList().get(c.getList().size() - 1));
                 }
             }
@@ -69,7 +92,6 @@ public class GUIController implements Initializable {
 
     public void updateTableView() {
         TreeItem<Department> selectedDep = (TreeItem<Department>) treeViewDepartments.getSelectionModel().getSelectedItem();
-        System.out.println(selectedDep.getValue().getEmployees().size());
         tableViewEmployees.setItems(selectedDep.getValue().getEmployees());
     }
 
@@ -94,12 +116,12 @@ public class GUIController implements Initializable {
             JOptionPane.showMessageDialog(null, "Selecteer een department.", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        
         Employee emp = new Employee(tbFirstname.getText(), tbLastname.getText());
         TreeItem<Department> selectedItem = (TreeItem<Department>) treeViewDepartments.getSelectionModel().getSelectedItem();
         selectedItem.getValue().addEmployee(emp);
         tbFirstname.clear();
         tbLastname.clear();
-        updateTableView();
     }
 
 }
