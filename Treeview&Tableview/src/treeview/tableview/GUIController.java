@@ -52,12 +52,6 @@ public class GUIController implements Initializable {
         tcFirstname.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstname"));
         tcLastname.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastname"));
 
-//        ObservableList<Employee> data = FXCollections.observableArrayList(
-//              new Employee("Jelle", "Widdershoven"),
-//              new Employee("Jordy", "Guzak")
-//        );
-//        
-//        tableViewEmployees.setItems(data);
         ArrayList<TreeItem<Department>> departments = new ArrayList<>();
         observableDepartments = FXCollections.observableArrayList(departments);
         observableDepartments.addListener(new ListChangeListener<TreeItem<Department>>() {
@@ -76,9 +70,7 @@ public class GUIController implements Initializable {
     public void updateTableView() {
         TreeItem<Department> selectedDep = (TreeItem<Department>) treeViewDepartments.getSelectionModel().getSelectedItem();
         System.out.println(selectedDep.getValue().getEmployees().size());
-        if (selectedDep.getValue().getEmployees().size() > 0) {
-            tableViewEmployees.setItems(selectedDep.getValue().getEmployees());
-        }
+        tableViewEmployees.setItems(selectedDep.getValue().getEmployees());
     }
 
     public void createNewDepartment() {
