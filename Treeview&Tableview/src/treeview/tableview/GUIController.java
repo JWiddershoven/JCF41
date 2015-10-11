@@ -16,7 +16,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
 import javax.swing.JOptionPane;
 
@@ -50,18 +52,19 @@ public class GUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         rootItem = new TreeItem<>(new Department("Departments"));
         rootItem.setExpanded(true);
+        tableViewEmployees.setEditable(true);
         treeViewDepartments.setRoot(rootItem);
         treeViewDepartments.setEditable(true);
-        treeViewDepartments.setCellFactory(new Callback<TreeView<Department>, TreeCell<Department>>(){
+        treeViewDepartments.setCellFactory(new Callback<TreeView<Department>, TreeCell<Department>>() {
 
             @Override
             public TreeCell<Department> call(TreeView<Department> param) {
                 return new TextFieldTree(param);
             }
-            
+
         });
-        
-        treeViewDepartments.setOnEditCommit(new EventHandler<TreeView.EditEvent<Department>>(){
+
+        treeViewDepartments.setOnEditCommit(new EventHandler<TreeView.EditEvent<Department>>() {
 
             @Override
             public void handle(TreeView.EditEvent<Department> event) {
@@ -72,7 +75,24 @@ public class GUIController implements Initializable {
         });
 
         tcFirstname.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstname"));
+        tcFirstname.setCellFactory(TextFieldTableCell.forTableColumn());
+        tcFirstname.setOnEditCommit(
+                new EventHandler<CellEditEvent<Employee, String>>() {
+                    @Override
+                    public void handle(CellEditEvent<Employee, String> t) {
+                        ((Employee) t.getTableView().getItems().get(t.getTablePosition().getRow())).setFirstname(t.getNewValue());
+                    }
+                });
+
         tcLastname.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastname"));
+        tcLastname.setCellFactory(TextFieldTableCell.forTableColumn());
+        tcLastname.setOnEditCommit(
+                new EventHandler<CellEditEvent<Employee, String>>() {
+                    @Override
+                    public void handle(CellEditEvent<Employee, String> t) {
+                        ((Employee) t.getTableView().getItems().get(t.getTablePosition().getRow())).setLastname(t.getNewValue());
+                    }
+                });
 
         ArrayList<TreeItem<Department>> departments = new ArrayList<>();
         observableDepartments = FXCollections.observableArrayList(departments);
@@ -116,7 +136,7 @@ public class GUIController implements Initializable {
             JOptionPane.showMessageDialog(null, "Selecteer een department.", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         Employee emp = new Employee(tbFirstname.getText(), tbLastname.getText());
         TreeItem<Department> selectedItem = (TreeItem<Department>) treeViewDepartments.getSelectionModel().getSelectedItem();
         selectedItem.getValue().addEmployee(emp);
