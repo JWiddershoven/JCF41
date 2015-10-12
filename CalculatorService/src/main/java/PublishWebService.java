@@ -7,5 +7,6 @@ public class PublishWebService {
 
     public static void main(String[] args) {
         Endpoint.publish(url, new WebCalculator());
+        System.out.println(url + "?wsdl");
     }
 }
