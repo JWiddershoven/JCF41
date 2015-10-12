@@ -20,4 +20,5 @@ public class WebCalculator {
     public int times(int x, int y) throws NegativeNumberException {
         return positiveCalculatorService.times(x, y);
     }
+    
 }
