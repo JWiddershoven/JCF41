@@ -6,6 +6,10 @@
 
 <xs:element name="addResponse" type="tns:addResponse"></xs:element>
 
+<xs:element name="divide" type="tns:divide"></xs:element>
+
+<xs:element name="divideResponse" type="tns:divideResponse"></xs:element>
+
 <xs:element name="minus" type="tns:minus"></xs:element>
 
 <xs:element name="minusResponse" type="tns:minusResponse"></xs:element>
@@ -54,6 +58,19 @@
 </xs:complexType>
 
 <xs:complexType name="addResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="divide">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int"></xs:element>
+<xs:element name="arg1" type="xs:int"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="divideResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"></xs:element>
 </xs:sequence>

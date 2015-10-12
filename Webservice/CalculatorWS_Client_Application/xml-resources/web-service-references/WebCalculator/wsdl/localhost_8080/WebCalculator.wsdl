@@ -13,6 +13,12 @@
 <message name="NegativeNumberException">
 <part name="fault" element="tns:NegativeNumberException"></part>
 </message>
+<message name="divide">
+<part name="parameters" element="tns:divide"></part>
+</message>
+<message name="divideResponse">
+<part name="parameters" element="tns:divideResponse"></part>
+</message>
 <message name="minus">
 <part name="parameters" element="tns:minus"></part>
 </message>
@@ -31,6 +37,11 @@
 <output wsam:Action="http://webService/WebCalculator/addResponse" message="tns:addResponse"></output>
 <fault message="tns:NegativeNumberException" name="NegativeNumberException" wsam:Action="http://webService/WebCalculator/add/Fault/NegativeNumberException"></fault>
 </operation>
+<operation name="divide">
+<input wsam:Action="http://webService/WebCalculator/divideRequest" message="tns:divide"></input>
+<output wsam:Action="http://webService/WebCalculator/divideResponse" message="tns:divideResponse"></output>
+<fault message="tns:NegativeNumberException" name="NegativeNumberException" wsam:Action="http://webService/WebCalculator/divide/Fault/NegativeNumberException"></fault>
+</operation>
 <operation name="minus">
 <input wsam:Action="http://webService/WebCalculator/minusRequest" message="tns:minus"></input>
 <output wsam:Action="http://webService/WebCalculator/minusResponse" message="tns:minusResponse"></output>
@@ -45,6 +56,18 @@
 <binding name="WebCalculatorPortBinding" type="tns:WebCalculator">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"></soap:binding>
 <operation name="add">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+<fault name="NegativeNumberException">
+<soap:fault name="NegativeNumberException" use="literal"></soap:fault>
+</fault>
+</operation>
+<operation name="divide">
 <soap:operation soapAction=""></soap:operation>
 <input>
 <soap:body use="literal"></soap:body>

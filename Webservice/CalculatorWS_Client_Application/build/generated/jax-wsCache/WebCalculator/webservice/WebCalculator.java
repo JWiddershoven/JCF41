@@ -58,6 +58,29 @@ public interface WebCalculator {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "divide", targetNamespace = "http://webService/", className = "webservice.Divide")
+    @ResponseWrapper(localName = "divideResponse", targetNamespace = "http://webService/", className = "webservice.DivideResponse")
+    @Action(input = "http://webService/WebCalculator/divideRequest", output = "http://webService/WebCalculator/divideResponse", fault = {
+        @FaultAction(className = NegativeNumberException_Exception.class, value = "http://webService/WebCalculator/divide/Fault/NegativeNumberException")
+    })
+    public int divide(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1)
+        throws NegativeNumberException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns int
+     * @throws NegativeNumberException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "minus", targetNamespace = "http://webService/", className = "webservice.Minus")
     @ResponseWrapper(localName = "minusResponse", targetNamespace = "http://webService/", className = "webservice.MinusResponse")
     @Action(input = "http://webService/WebCalculator/minusRequest", output = "http://webService/WebCalculator/minusResponse", fault = {

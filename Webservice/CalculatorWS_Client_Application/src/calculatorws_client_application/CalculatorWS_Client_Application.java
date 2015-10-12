@@ -21,7 +21,13 @@ public class CalculatorWS_Client_Application {
             int i = 3;
             int j = 4;
             int result = add(i, j);
-            System.out.println("Result = " + result);
+            System.out.println("Add = " + result);
+            result = minus(j, i);
+            System.out.println("Minus = " + result);
+            result = times(i, j);
+            System.out.println("Times = " + result);
+            result = divide(j, i);
+            System.out.println("Divide = " + result);
         }
         catch (Exception ex) {
             System.out.println("Exception: " + ex);
@@ -33,5 +39,28 @@ public class CalculatorWS_Client_Application {
         webservice.WebCalculator port = service.getWebCalculatorPort();
         return port.add(arg0, arg1);
     }
+
+    private static int minus(int arg0, int arg1) throws NegativeNumberException_Exception {
+        webservice.WebCalculatorService service = new webservice.WebCalculatorService();
+        webservice.WebCalculator port = service.getWebCalculatorPort();
+        return port.minus(arg0, arg1);
+    }
+
+    private static int times(int arg0, int arg1) throws NegativeNumberException_Exception {
+        webservice.WebCalculatorService service = new webservice.WebCalculatorService();
+        webservice.WebCalculator port = service.getWebCalculatorPort();
+        return port.times(arg0, arg1);
+    }
+
+    private static int divide(int arg0, int arg1) throws NegativeNumberException_Exception {
+        webservice.WebCalculatorService service = new webservice.WebCalculatorService();
+        webservice.WebCalculator port = service.getWebCalculatorPort();
+        return port.divide(arg0, arg1);
+    }
+    
+    
+    
+    
+    
 
 }

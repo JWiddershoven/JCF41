@@ -30,6 +30,8 @@ public class ObjectFactory {
     private final static QName _NegativeNumberException_QNAME = new QName("http://webService/", "NegativeNumberException");
     private final static QName _TimesResponse_QNAME = new QName("http://webService/", "timesResponse");
     private final static QName _Times_QNAME = new QName("http://webService/", "times");
+    private final static QName _DivideResponse_QNAME = new QName("http://webService/", "divideResponse");
+    private final static QName _Divide_QNAME = new QName("http://webService/", "divide");
     private final static QName _MinusResponse_QNAME = new QName("http://webService/", "minusResponse");
 
     /**
@@ -88,11 +90,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Divide }
+     * 
+     */
+    public Divide createDivide() {
+        return new Divide();
+    }
+
+    /**
      * Create an instance of {@link MinusResponse }
      * 
      */
     public MinusResponse createMinusResponse() {
         return new MinusResponse();
+    }
+
+    /**
+     * Create an instance of {@link DivideResponse }
+     * 
+     */
+    public DivideResponse createDivideResponse() {
+        return new DivideResponse();
     }
 
     /**
@@ -147,6 +165,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webService/", name = "times")
     public JAXBElement<Times> createTimes(Times value) {
         return new JAXBElement<Times>(_Times_QNAME, Times.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DivideResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webService/", name = "divideResponse")
+    public JAXBElement<DivideResponse> createDivideResponse(DivideResponse value) {
+        return new JAXBElement<DivideResponse>(_DivideResponse_QNAME, DivideResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Divide }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webService/", name = "divide")
+    public JAXBElement<Divide> createDivide(Divide value) {
+        return new JAXBElement<Divide>(_Divide_QNAME, Divide.class, null, value);
     }
 
     /**

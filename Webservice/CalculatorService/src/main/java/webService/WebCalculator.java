@@ -21,4 +21,8 @@ public class WebCalculator {
         return positiveCalculatorService.times(x, y);
     }
     
+    public int divide(int x, int y) throws NegativeNumberException {
+        return positiveCalculatorService.divide(x, y);
+    }
+    
 }
