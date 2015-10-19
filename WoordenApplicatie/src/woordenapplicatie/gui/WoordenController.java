@@ -153,7 +153,6 @@ public class WoordenController implements Initializable {
             regelnummers = new ArrayList<>();
             for (int i = 0; i < regels.length; i++) {
                 if (regels[i].contains(woord)) {
-                    //TODO
                     regelnummers.add(i + 1);
                 }
             }
